@@ -14,12 +14,11 @@ function App() {
       <Router>
         <React.Fragment>
           <Navbar />
-          <div className="container">
+          <div className="container ">
             <Switch>
               <Route exact path="/" component={Index} />
               <Route exact path="/lyric/track/:id" component={Lyrics} />
             </Switch>
-            {/* <p>ca2125e8bddc4698c69a8ad8c94eaf70</p> */}
           </div>
         </React.Fragment>
       </Router>
