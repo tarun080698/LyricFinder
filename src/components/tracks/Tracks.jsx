@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Consumer } from "../../context.js";
-import spinner from "../layouts/spinner.gif";
+import Spinner from "../layouts/Spinner.jsx";
 import Track from "./Track.jsx";
 
 export default class Tracks extends Component {
@@ -20,13 +20,7 @@ export default class Tracks extends Component {
               </div>
             </React.Fragment>
           ) : (
-            <div>
-      <img
-        src={spinner}
-        alt="Loading..."
-        className="rounded mx-auto d-block"
-      />
-    </div>
+            <Spinner />
           );
         }}
       </Consumer>
