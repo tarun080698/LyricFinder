@@ -12,7 +12,7 @@ class Lyrics extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
     fetch(
       `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`
     )
@@ -39,8 +39,8 @@ class Lyrics extends Component {
               .then((data) => console.log(data));
           }
         )
-    );
-    console.log(this.state)
+      );
+    console.log(this.state);
   }
 
   render() {

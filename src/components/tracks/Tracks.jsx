@@ -13,9 +13,11 @@ export default class Tracks extends Component {
           return track_list && track_list.length > 0 ? (
             <React.Fragment>
               <h3 className="text-center mb-5">{heading}</h3>
-              <div className="row" >
+              <div className="row">
                 {track_list.map((track) => {
-                  return <Track key={track.track.track_id} track={track.track} />;
+                  return (
+                    <Track key={track.track.track_id} track={track.track} />
+                  );
                 })}
               </div>
             </React.Fragment>
