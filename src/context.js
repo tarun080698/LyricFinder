@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 
 const Context = React.createContext();
-const url = `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=top&page=1&page_size=5&country=it&f_has_lyrics=1&apikey=${process.env.REACT_APP_MM_KEY}`;
+const url = `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=top&page=1&page_size=10&country=ind&f_has_lyrics=1&apikey=${process.env.REACT_APP_MM_KEY}`;
 
 export class Provider extends Component {
   constructor() {
     super();
     this.state = {
-      track_list: [
-        { track: { track_name: "abc" } },
-        { track: { track_name: "def" } },
-      ],
+      track_list: [],
       heading: "Top 10 Tracks",
     };
   }
@@ -18,7 +15,9 @@ export class Provider extends Component {
   componentDidMount() {
     fetch(url)
       .then((response) => response.json())
-      .then((data) => console.log("This is your data", data));
+      .then((data) =>
+        this.setState({ track_list: data.message.body.track_list })
+      );
   }
   render() {
     return (

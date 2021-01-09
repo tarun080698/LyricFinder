@@ -1,21 +1,23 @@
 import React from "react";
 import "./App.css";
 
-import {Provider} from "./context";
+import { Provider } from "./context";
 import Navbar from "./components/layouts/Navbar";
 import Index from "./components/layouts/Index";
 
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import Lyrics from "./components/tracks/Lyrics";
 
 function App() {
   return (
-    <Provider className="App"> 
+    <Provider className="App">
       <Router>
-        <React.Fragment >
+        <React.Fragment>
           <Navbar />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Index}></Route>
+              <Route exact path="/" component={Index} />
+              <Route exact path="/lyric/track/:id" component={Lyrics} />
             </Switch>
             {/* <p>ca2125e8bddc4698c69a8ad8c94eaf70</p> */}
           </div>

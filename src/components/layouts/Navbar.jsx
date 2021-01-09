@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-dark bg-dark mb-5">
       <span className="navbar-brand mb-0 h1 mx-auto">
-        <i className="fas fa-music-alt"></i> Find Lyrics
+        <i className="fas fa-music"></i> Find Lyrics
       </span>
     </nav>
   );
