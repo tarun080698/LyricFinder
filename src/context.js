@@ -16,7 +16,8 @@ export class Provider extends Component {
     fetch(url)
       .then((response) => response.json())
       .then((data) =>
-        this.setState({ track_list: data.message.body.track_list })
+        {console.log(data)
+        this.setState({ track_list: data.message.body.track_list })}
       );
   }
   render() {

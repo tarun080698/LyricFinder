@@ -9,7 +9,7 @@ export default class Tracks extends Component {
       <Consumer>
         {(value) => {
           const { track_list, heading } = value;
-
+          console.log(value)
           return track_list && track_list.length > 0 ? (
             <React.Fragment>
               <h3 className="text-center mb-5">{heading}</h3>

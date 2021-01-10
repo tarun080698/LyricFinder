@@ -32,11 +32,11 @@ export default class Search extends Component {
               return <Track track={item.track} key={item.track.track_id} />;
             })
           ) : (
-            <div class="alert alert-primary w-50 p-3 mx-auto" role="alert">
+            <div className="alert alert-primary w-50 p-3 mx-auto" role="alert">
               Nothing Found, Try again with something different!
               {/* <button
                 type="button"
-                class="btn-close btn-close-dark float-right"
+                className="btn-close btn-close-dark float-right"
                 aria-label="Close"
                 onClick={() => {
                   result = null;
@@ -94,20 +94,22 @@ export default class Search extends Component {
                     <label htmlFor="floatingInput">
                       search any by word in the Lyrics, Name or Artist
                     </label>
+                    <div className="btn-group btn-group-justified w-auto d-inline mx-auto">
+                      <button className="btn btn-primary w-80" type="submit">
+                        Find Lyrics
+                      </button>
+                      <button className="btn btn-primary w-10" type="close">
+                        <i className="fas fa-microphone"></i>
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    className="btn btn-primary w-50 d-grid mx-auto"
-                    type="submit"
-                  >
-                    Find Lyrics
-                  </button>
                 </form>
               </div>
               <div className="center mb-4">
                 {result !== null && (
                   <div className="center mb-4">
                     {this.state.size > 0 && (
-                      <h1 class="display-6">
+                      <h1 className="display-6">
                         Search results for "
                         <strong>{this.state.searchedFor}</strong>" are :{" "}
                       </h1>

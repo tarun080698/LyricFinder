@@ -4,62 +4,6 @@ import { Link } from "react-router-dom";
 export default function Track(props) {
   const { track } = props;
 
-  //   function findRating(fav) {
-  //     let tag = <></>;
-
-  //     if (fav <= 1000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-light  float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-dark">{fav}</span>
-  //         </span>
-  //       );
-  //     } else if (1000 < fav <= 2000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-primary float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-dark">{fav}</span>
-  //         </span>
-  //       );
-  //     } else if (2000 < fav <= 3000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-success  float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-dark">{fav}</span>
-  //         </span>
-  //       );
-  //     } else if (3000 < fav <= 5000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-info  float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-dark">{fav}</span>
-  //         </span>
-  //       );
-  //     } else if (5000 < fav <= 6000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-info  float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-info">{fav}</span>
-  //         </span>
-  //       );
-  //     } else if (6000 < fav <= 8000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-warning  float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-dark">{fav}</span>
-  //         </span>
-  //       );
-  //     } else if (fav > 10000) {
-  //       tag = (
-  //         <span role="button" className="btn btn-danger  float-end">
-  //           <i className="fas fa-heart"></i> Likes{"  "}
-  //           <span className="badge bg-secondary bg-dark">{fav}</span>
-  //         </span>
-  //       );
-  //     }
-  //     return tag;
-  //   }
-
   return (
     <div className="col-md-6">
       <div className="card shadow-lg mb-4 p-2">
