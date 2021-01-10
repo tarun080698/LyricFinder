@@ -12,15 +12,15 @@ export default class Search extends Component {
       searchValue: "",
       size: -1,
       show: false,
-      searchedFor: '', 
+      searchedFor: "",
     };
   }
 
   findTrack = (e) => {
     e.preventDefault();
     this.setState({
-      searchedFor: this.state.searchValue
-    })
+      searchedFor: this.state.searchValue,
+    });
     fetch(
       `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q=${this.state.searchValue}&f_has_lyrics=1&f_lyrics_language=en&apikey=${process.env.REACT_APP_MM_KEY}`
     )
