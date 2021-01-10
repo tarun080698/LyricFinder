@@ -1,3 +1,5 @@
+THis app is hosted on netlify. For demo, click here https://find-lyrics-achiever.netlify.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

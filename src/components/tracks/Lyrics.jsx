@@ -148,7 +148,7 @@ class Lyrics extends Component {
                   className="btn btn-dark  float-end"
                   title="number of people liked"
                 >
-                  <i className="fas fa-heart"></i> Likes{"  "}
+                  <i className="fas fa-heart text-danger"></i> Likes{"  "}
                   <span className="badge bg-secondary bg-danger">
                     <span>{track.num_favourite}</span>
                   </span>
