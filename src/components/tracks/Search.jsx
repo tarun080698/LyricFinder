@@ -12,13 +12,17 @@ export default class Search extends Component {
       searchValue: "",
       size: -1,
       show: false,
+      searchedFor: '', 
     };
   }
 
   findTrack = (e) => {
     e.preventDefault();
+    this.setState({
+      searchedFor: this.state.searchValue
+    })
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q=${this.state.searchValue}&f_has_lyrics=1&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q=${this.state.searchValue}&f_has_lyrics=1&f_lyrics_language=en&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -78,7 +82,7 @@ export default class Search extends Component {
                 >
                   <div className="form-group form-floating">
                     <input
-                      type="text"
+                      type="search"
                       className="form-control form-control-lg mb-3"
                       placeholder="search any by word in the Lyrics, Name or Artist"
                       name="searchValue"
@@ -105,7 +109,7 @@ export default class Search extends Component {
                     {this.state.size > 0 && (
                       <h1 class="display-6">
                         Search results for "
-                        <strong>{this.state.searchValue}</strong>" are :{" "}
+                        <strong>{this.state.searchedFor}</strong>" are :{" "}
                       </h1>
                     )}
                     <br />
