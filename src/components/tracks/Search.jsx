@@ -22,15 +22,25 @@ export default class Search extends Component {
       searchedFor: this.state.searchValue,
     });
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q=${this.state.searchValue}&f_has_lyrics=1&f_lyrics_language=en&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_track_artist=${this.state.searchValue}&f_has_lyrics=1&f_lyrics_language=en&s_track_rating=desc&s_artist_rating=desc&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) => {
         result =
           data.message.body.track_list.length > 0 ? (
-            data.message.body.track_list.map((item) => {
-              return <Track track={item.track} key={item.track.track_id} />;
-            })
+            <React.Fragment>
+              <h3 className="text-center mb-5">
+                <h1 class="display-6">
+                  Search results for "<strong>{this.state.searchedFor}</strong>"
+                  are :{" "}
+                </h1>
+              </h3>
+              <div className="row">
+                {data.message.body.track_list.map((item) => {
+                  return <Track track={item.track} key={item.track.track_id} />;
+                })}
+              </div>
+            </React.Fragment>
           ) : (
             <div class="alert alert-primary w-50 p-3 mx-auto" role="alert">
               Nothing Found, Try again with something different!
@@ -84,7 +94,7 @@ export default class Search extends Component {
                     <input
                       type="search"
                       className="form-control form-control-lg mb-3"
-                      placeholder="search any by word in the Lyrics, Name or Artist"
+                      placeholder="search by Track Title or Artist Name"
                       name="searchValue"
                       value={this.state.searchValue}
                       onChange={(e) => this.onChange(e)}
@@ -92,7 +102,7 @@ export default class Search extends Component {
                       autoComplete="off"
                     />
                     <label htmlFor="floatingInput">
-                      search any by word in the Lyrics, Name or Artist
+                    search by Track Title or Artist Name
                     </label>
                   </div>
                   <button
@@ -106,13 +116,13 @@ export default class Search extends Component {
               <div className="center mb-4">
                 {result !== null && (
                   <div className="center mb-4">
-                    {this.state.size > 0 && (
+                    {/* {this.state.size > 0 && (
                       <h1 class="display-6">
                         Search results for "
                         <strong>{this.state.searchedFor}</strong>" are :{" "}
                       </h1>
                     )}
-                    <br />
+                    <br /> */}
 
                     {result}
                   </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 const Context = React.createContext();
-const url = `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=top&page=1&page_size=10&country=ind&f_has_lyrics=1&apikey=${process.env.REACT_APP_MM_KEY}`;
+const url = `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=top&page=1&page_size=10&country=ind&f_has_lyrics=1&s_track_rating=desc&s_artist_rating=desc&apikey=${process.env.REACT_APP_MM_KEY}`;
 
 export class Provider extends Component {
   constructor() {
