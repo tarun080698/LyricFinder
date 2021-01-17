@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import Spinner from "../layouts/Spinner.jsx";
-// import img from "../layouts/spinner.gif";
 import { Link } from "react-router-dom";
+import imagenotfound from "../../assets/img/notfound.png";
 class Lyrics extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      trackId: this.props.match.params.id,
       track: {},
       lyrics: {},
+      feedback: "",
+      type: "form",
+      show: true,
     };
   }
 
-  componentDidMount() {
-    console.log(this.props);
+  fetchLyrics = () => {
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${this.state.trackId}&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) =>
@@ -22,38 +25,56 @@ class Lyrics extends Component {
           lyrics: data.message.body.lyrics,
         })
       );
+  };
+
+  getTrackinfo = () => {
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.get?track_id=${this.state.trackId}&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) =>
-        this.setState(
-          {
-            track: data.message.body.track,
-          },
-          () => {
-            fetch(
-              `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/album.tracks.get?album_id=${this.state.track.album_id}&apikey=${process.env.REACT_APP_MM_KEY}`
-            )
-              .then((response) => response.json())
-              .then((data) => console.log(data));
-          }
-        )
+        this.setState({
+          track: data.message.body.track,
+        })
       );
-    console.log(this.state);
+  };
+
+  provideFeedback = (e) => {
+    e.preventDefault();
+    fetch(
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.feedback.post?track_id=${this.state.trackId}&lyrics_id=${this.state.lyrics.lyrics_id}&feedback=${this.state.feedback}&apikey=${process.env.REACT_APP_MM_KEY}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message.header.status_code === 200) {
+          this.setState({
+            show: true,
+            type: "notif",
+          });
+        }
+      });
+  };
+
+  componentDidMount() {
+    localStorage.setItem("track_id", this.props.match.params.id);
+    this.fetchLyrics();
+    this.getTrackinfo();
   }
 
   render() {
     const { track, lyrics } = this.state;
-    let date = new Date(track.updated_time);
-    date = date.toString().substring(0, 21);
+    let date = track
+      ? new Date(track.updated_time).toString().substring(0, 21)
+      : null;
     return (
       <div>
         {lyrics === undefined ||
         track === undefined ||
         Object.keys(track).length === 0 ||
         Object.keys(lyrics).length === 0 ? (
-          <Spinner />
+          <>
+            <Spinner />
+          </>
         ) : (
           <React.Fragment>
             <Link
@@ -64,12 +85,7 @@ class Lyrics extends Component {
               <i className="fas fa-chevron-circle-left"></i>
             </Link>{" "}
             <div className="card shadow-lg p-4">
-              {this.state.track ? (
-                <span>
-                  <i className="card-img-top fas fa-image mx-auto"></i>
-                  Album Cover not available
-                </span>
-              ) : (
+              {this.state.track.album ? (
                 <div className="d-flex justify-content-center">
                   <div
                     className="spinner-grow"
@@ -78,6 +94,18 @@ class Lyrics extends Component {
                   >
                     <span className="visually-hidden">Loading...</span>
                   </div>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-center">
+                  <span>
+                    <img
+                      src={imagenotfound}
+                      alt="Album Cover not available"
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                    <br />
+                    <span>cover iamge not found!</span>
+                  </span>
                 </div>
               )}
               <div className="card-header">
@@ -155,6 +183,59 @@ class Lyrics extends Component {
                 </button>
               </div>
             </div>
+            {/* feedback form */}
+            {this.state.type === "form" ? (
+              this.state.show ? (
+                <div className="card shadow-none p-2 mt-5 mx-auto w-50 center">
+                  <h5 className="card-header">Send Feedback!</h5>
+                  <div className="card-body">
+                    <span className="text-muted mb-1">
+                      This is an unauthenticated feedback. It has some
+                      limitations the feedback.
+                      <br /> Thanks for helping us grow!
+                    </span>
+                    <form
+                      onSubmit={(e) => {
+                        this.setState({ show: true });
+                        this.provideFeedback(e);
+                      }}
+                    >
+                      <div className="form-group">
+                        <label htmlFor="exampleFormControlTextarea1">
+                          Your Comment
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="3"
+                          onChange={(e) =>
+                            this.setState({
+                              feedback: e.target.value,
+                            })
+                          }
+                          placeholder="The feedback to be reported, possible values are: wrong_lyrics, wrong_attribution, bad_characters, lines_too_long, wrong_verses, wrong_formatting"
+                        ></textarea>
+                      </div>
+                      <button
+                        className="btn btn-primary w-20 m-2"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              ) : (
+                <Spinner />
+              )
+            ) : (
+              <div
+                className="alert alert-primary w-50 p-2 mx-auto mt-5"
+                role="alert"
+              >
+                Feedback Submitted, Thanks for the feedback!
+              </div>
+            )}
           </React.Fragment>
         )}
       </div>
@@ -163,5 +244,3 @@ class Lyrics extends Component {
 }
 
 export default Lyrics;
-
-//<img src='https://s.mxmcdn.net/images-storage/albums5/4/4/3/7/9/6/50697344_350_350.jpg' className="card-img-top center mx-auto" alt="album cover" style={{ width: '400px', height: '400px' }} />

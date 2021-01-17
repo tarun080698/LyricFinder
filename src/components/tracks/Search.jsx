@@ -10,7 +10,6 @@ export default class Search extends Component {
     super(props);
     this.state = {
       searchValue: "",
-      size: -1,
       show: false,
       searchedFor: "",
     };
@@ -20,33 +19,37 @@ export default class Search extends Component {
     e.preventDefault();
     this.setState({
       searchedFor: this.state.searchValue,
+      search_tracks: [],
     });
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_track_artist=${this.state.searchValue}&f_has_lyrics=1&f_lyrics_language=en&s_track_rating=desc&s_artist_rating=desc&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_track_artist=${this.state.searchValue}&f_has_lyrics=1&f_lyrics_language=en&s_track_rating=desc&s_artist_rating=desc&page_size=5&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) => {
+        this.setState({
+          search_tracks: data.message.body.track_list,
+        });
         result =
-          data.message.body.track_list.length > 0 ? (
+          this.state.search_tracks.length > 0 ? (
             <React.Fragment>
               <h3 className="text-center mb-5">
-                <h1 class="display-6">
+                <h1 className="display-6">
                   Search results for "<strong>{this.state.searchedFor}</strong>"
                   are :{" "}
                 </h1>
               </h3>
               <div className="row">
-                {data.message.body.track_list.map((item) => {
+                {this.state.search_tracks.map((item) => {
                   return <Track track={item.track} key={item.track.track_id} />;
                 })}
               </div>
             </React.Fragment>
           ) : (
-            <div class="alert alert-primary w-50 p-3 mx-auto" role="alert">
+            <div className="alert alert-primary w-50 p-3 mx-auto" role="alert">
               Nothing Found, Try again with something different!
               {/* <button
                 type="button"
-                class="btn-close btn-close-dark float-right"
+                className="btn-close btn-close-dark float-right"
                 aria-label="Close"
                 onClick={() => {
                   result = null;
@@ -55,7 +58,7 @@ export default class Search extends Component {
             </div>
           );
         this.setState({
-          size: data.message.body.track_list.length,
+          size: this.state.search_tracks.length,
         });
         this.setState({
           show: false,
@@ -94,7 +97,7 @@ export default class Search extends Component {
                     <input
                       type="search"
                       className="form-control form-control-lg mb-3"
-                      placeholder="search by Track Title or Artist Name"
+                      placeholder='{<i className="fas fa-search"></i>}search by Track Title or Artist Name'
                       name="searchValue"
                       value={this.state.searchValue}
                       onChange={(e) => this.onChange(e)}
@@ -102,31 +105,28 @@ export default class Search extends Component {
                       autoComplete="off"
                     />
                     <label htmlFor="floatingInput">
-                    search by Track Title or Artist Name
+                      <i className="fas fa-search"></i> Search by Track Title or
+                      Artist Name
                     </label>
                   </div>
                   <button
-                    className="btn btn-primary w-50 d-grid mx-auto"
+                    className="btn btn-primary w-50 d-inline mx-auto"
                     type="submit"
                   >
                     Find Lyrics
                   </button>
+                  {false && (
+                    <button
+                      className="btn btn-primary w-10 d-inline ml-2"
+                      type="submit"
+                    >
+                      <i className="fas fa-microphone"></i>
+                    </button>
+                  )}
                 </form>
               </div>
               <div className="center mb-4">
-                {result !== null && (
-                  <div className="center mb-4">
-                    {/* {this.state.size > 0 && (
-                      <h1 class="display-6">
-                        Search results for "
-                        <strong>{this.state.searchedFor}</strong>" are :{" "}
-                      </h1>
-                    )}
-                    <br /> */}
-
-                    {result}
-                  </div>
-                )}
+                {result !== null && <div className="center mb-4">{result}</div>}
                 {this.state.show && <Spinner />}
               </div>
             </div>
