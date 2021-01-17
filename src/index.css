@@ -1,0 +1,61 @@
+:root {
+  --clr-bcg: rgb(26, 8, 8);
+  --clr-font: #282c35;
+  --clr-primary: #d23669;
+}
+
+.dark-theme {
+  --clr-bg: #152235;
+  --clr-font: #f7f7f7;
+  --clr-primary: #58a6ff;
+  --clr-card-bg: #1e2f49;
+  --clr-card-txt: #c9d1d9;
+  --clr-btn: #0163f7;
+  --clr-btn-text: #ffffff;
+}
+.light-theme {
+  --clr-bg: #fff4f4;
+  --clr-font: #152235;
+  --clr-primary: #58a6ff;
+  --clr-card-bg: #002849;
+  --clr-card-txt: #cecece;
+  --clr-btn: #0163f7;
+  --clr-btn-text: #ffffff;
+}
+
+/* container */
+div.container-fluid {
+  color: var(--clr-bcg);
+  background-color: var(--clr-bg);
+}
+
+/* navbar */
+span.heading {
+  color: var(--clr-primary);
+}
+
+nav {
+  background-color: #001431;
+  color: var(--clr-font);
+}
+
+/* search coponent */
+.card {
+  color: var(--clr-card-txt);
+  background-color: var(--clr-card-bg);
+  border-radius: 1.25rem;
+}
+
+/* tracks */
+
+/* track */
+.card .card-title .card-text {
+  color: var(--clr-primary);
+  background-color: var(--clr-bg);
+}
+
+/* buttons */
+.btn {
+  color: var(--clr-btn-text);
+  background-color: var(--clr-btn);
+}

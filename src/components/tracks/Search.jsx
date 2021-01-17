@@ -77,7 +77,7 @@ export default class Search extends Component {
         {(value) => {
           return (
             <div>
-              <div className="card card-body text-center mb-5 p-4">
+              <div className="card card-body text-center mb-5 py-5 w-70">
                 <h5 className="card-title display-3 text-capitalize">
                   <i className="fas fa-music"></i>
                   {"  "}Search for a song lyrics
@@ -85,7 +85,7 @@ export default class Search extends Component {
                 <p className="card-text text-muted text-capitalize display-6">
                   Get lyrics for any song
                 </p>
-                <form
+                <form 
                   onSubmit={(e) => {
                     this.setState({
                       show: true,
@@ -96,7 +96,7 @@ export default class Search extends Component {
                   <div className="form-group form-floating">
                     <input
                       type="search"
-                      className="form-control form-control-lg mb-3"
+                      className="form-control form-control-lg mb-3 mx-auto"
                       placeholder='{<i className="fas fa-search"></i>}search by Track Title or Artist Name'
                       name="searchValue"
                       value={this.state.searchValue}

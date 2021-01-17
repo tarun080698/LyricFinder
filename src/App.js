@@ -7,14 +7,39 @@ import Index from "./components/layouts/Index";
 
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import Lyrics from "./components/tracks/Lyrics";
+import { useState } from "react";
+import { useEffect } from "react";
+
+const getStorageTheme = () => {
+  let theme = "light-theme";
+  if (localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  }
+  return theme;
+};
 
 function App() {
+  const [theme, setTheme] = useState(getStorageTheme());
+
+  const toggleTheme = () => {
+    if (theme === "light-theme") {
+      setTheme("dark-theme");
+    } else {
+      setTheme("light-theme");
+    }
+  };
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   return (
     <Provider className="App">
       <Router>
         <React.Fragment>
-          <Navbar />
-          <div className="container ">
+          <Navbar changeTheme={toggleTheme} />
+
+          <div className="container-fluid">
             <Switch>
               <Route exact path="/" component={Index} />
               <Route exact path="/lyric/track/:id" component={Lyrics} />
