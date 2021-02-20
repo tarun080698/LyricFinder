@@ -85,7 +85,7 @@ export default class Search extends Component {
                 <p className="card-text text-muted text-capitalize display-6">
                   Get lyrics for any song
                 </p>
-                <form 
+                <form
                   onSubmit={(e) => {
                     this.setState({
                       show: true,

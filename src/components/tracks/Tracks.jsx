@@ -15,7 +15,7 @@ export default class Tracks extends Component {
 
           return top_ten && top_ten.length > 0 ? (
             <React.Fragment>
-              <div className="container">
+              <div className="container-fluid">
                 <div className="row">
                   <div className="col border-bottom-0">
                     <h1 className="text-center mb-4 text-muted font-monospace">

@@ -4,7 +4,7 @@ import logo from "../../assets/img/logo.png";
 const Navbar = (props) => {
   return (
     <nav className="navbar">
-      <span className="navbar-brand h1 mx-auto">
+      <div className="navbar-brand h1 mx-auto">
         <img
           src={logo}
           alt="hot 10 tracks"
@@ -12,9 +12,18 @@ const Navbar = (props) => {
         />{" "}
         <span className="heading text-capitalize font-monospace text-light text-center text-large">
           Find Lyrics
-          <button type="button" class="btn" onClick={props.changeTheme}>Toggle Theme</button>
         </span>
-      </span>
+      </div>
+      <button
+        type="button"
+        class="btn float-right"
+        onClick={props.changeTheme}
+        style={{
+          marginRight: "20px",
+        }}
+      >
+        Toggle Theme
+      </button>
     </nav>
   );
 };
