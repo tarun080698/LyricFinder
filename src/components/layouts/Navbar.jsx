@@ -29,7 +29,7 @@ const Navbar = (props) => {
           marginRight: "10px",
         }}
       >
-        Light theme
+        Dark theme
       </label>
       <input
         // clsaaName="btn float-right"
