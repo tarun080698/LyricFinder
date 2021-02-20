@@ -130,7 +130,7 @@ class Lyrics extends Component {
               </div>
               <div className="card-body">
                 <p
-                  className="card-text bg-light text-xl-dark p-2 w-auto border-bottom"
+                  className="card-text text-xl-dark p-2 w-auto border-bottom"
                   title="Artist"
                 >
                   - by {track.artist_name}{" "}
@@ -158,7 +158,7 @@ class Lyrics extends Component {
                 <span role="button" title="click to view full lyrics">
                   <a
                     href={track.track_share_url}
-                    className="btn btn-link text-dark"
+                    className="btn btn-link"
                     target="_blank"
                     rel="noreferrer"
                   >

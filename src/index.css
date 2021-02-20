@@ -5,21 +5,21 @@
 }
 
 .dark-theme {
-  --clr-bg: #152235;
-  --clr-font: #f7f7f7;
-  --clr-primary: #58a6ff;
-  --clr-card-bg: #1e2f49;
-  --clr-card-txt: #c9d1d9;
-  --clr-btn: #0163f7;
+  --clr-bg: #001233;
+  --clr-font: #979DAC;
+  --clr-primary: #E7ECEF;
+  --clr-card-bg: #002855;
+  --clr-card-txt: #ffffff;
+  --clr-btn: #001233;
   --clr-btn-text: #ffffff;
 }
 .light-theme {
-  --clr-bg: #fff4f4;
-  --clr-font: #152235;
-  --clr-primary: #58a6ff;
-  --clr-card-bg: #002849;
-  --clr-card-txt: #cecece;
-  --clr-btn: #0163f7;
+  --clr-bg: #E7ECEF;
+  --clr-font: #E7ECEF;
+  --clr-primary: #E7ECEF;
+  --clr-card-bg: #A3CEF1;
+  --clr-card-txt: #274C77;
+  --clr-btn: #274C77;
   --clr-btn-text: #ffffff;
 }
 
@@ -35,7 +35,7 @@ span.heading {
 }
 
 nav {
-  background-color: #001431;
+  background-color: var(--clr-btn);
   color: var(--clr-font);
 }
 
@@ -43,6 +43,11 @@ nav {
 .card {
   color: var(--clr-card-txt);
   background-color: var(--clr-card-bg);
+  border-radius: 1.25rem;
+}
+
+.card .card-body{
+  color: var(--clr-card-txt);
   border-radius: 1.25rem;
 }
 
