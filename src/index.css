@@ -24,7 +24,6 @@
 }
 body {
   background-color: var(--clr-btn);
-  font-family: cursive;
 }
 /* container */
 div.container-fluid {
@@ -64,7 +63,6 @@ nav {
 .search {
   margin: 5% 7%;
   text-align: center;
-  font-family: cursive;
 }
 
 .card .card-body {
@@ -93,10 +91,6 @@ nav {
 
 .card-title {
   display: flex;
-  font-family: cursive;
-}
-.card-body {
-  font-family: cursive;
 }
 
 #song-lyrics {
