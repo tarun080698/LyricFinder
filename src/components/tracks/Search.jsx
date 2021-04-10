@@ -12,6 +12,7 @@ export default class Search extends Component {
       searchValue: "",
       show: false,
       searchedFor: "",
+
     };
   }
 
