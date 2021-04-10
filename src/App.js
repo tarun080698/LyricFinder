@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 
 import { Provider } from "./context";
 import Navbar from "./components/layouts/Navbar";
@@ -32,7 +31,9 @@ function App() {
   useEffect(() => {
     document.documentElement.className = theme;
     localStorage.setItem("theme", theme);
+    console.log(theme);
   }, [theme]);
+
   return (
     <Provider className="App">
       <Router>
