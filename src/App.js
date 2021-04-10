@@ -24,7 +24,7 @@ function App() {
   const toggleTheme = () => {
     if (theme === "light-theme") {
       setTheme("dark-theme");
-    } else {
+    } else if (theme === "dark-theme") {
       setTheme("light-theme");
     }
   };
