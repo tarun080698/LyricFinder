@@ -5,8 +5,10 @@ import Search from "../tracks/Search";
 const Index = () => {
   return (
     <React.Fragment>
-      <Search />
-      <Tracks />
+      <div className="container-fluid">
+        <Search />
+        <Tracks />
+      </div>
     </React.Fragment>
   );
 };

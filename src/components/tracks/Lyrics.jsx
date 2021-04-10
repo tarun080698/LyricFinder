@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import Spinner from "../layouts/Spinner.jsx";
-// import img from "../layouts/spinner.gif";
 import { Link } from "react-router-dom";
+// import imagenotfound from "../../assets/img/notfound.png";
 class Lyrics extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      trackId: this.props.match.params.id,
       track: {},
       lyrics: {},
+      feedback: "",
+      type: "form",
+      show: true,
     };
   }
 
-  componentDidMount() {
-    console.log(this.props);
+  fetchLyrics = () => {
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${this.state.trackId}&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) =>
@@ -22,54 +25,67 @@ class Lyrics extends Component {
           lyrics: data.message.body.lyrics,
         })
       );
+  };
+
+  getTrackinfo = () => {
     fetch(
-      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.get?track_id=${this.props.match.params.id}&apikey=${process.env.REACT_APP_MM_KEY}`
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.get?track_id=${this.state.trackId}&apikey=${process.env.REACT_APP_MM_KEY}`
     )
       .then((response) => response.json())
       .then((data) =>
-        this.setState(
-          {
-            track: data.message.body.track,
-          },
-          () => {
-            fetch(
-              `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/album.tracks.get?album_id=${this.state.track.album_id}&apikey=${process.env.REACT_APP_MM_KEY}`
-            )
-              .then((response) => response.json())
-              .then((data) => console.log(data));
-          }
-        )
+        this.setState({
+          track: data.message.body.track,
+        })
       );
-    console.log(this.state);
+  };
+
+  provideFeedback = (e) => {
+    e.preventDefault();
+    fetch(
+      `https://cors-access-allow.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.lyrics.feedback.post?track_id=${this.state.trackId}&lyrics_id=${this.state.lyrics.lyrics_id}&feedback=${this.state.feedback}&apikey=${process.env.REACT_APP_MM_KEY}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message.header.status_code === 200) {
+          this.setState({
+            show: true,
+            type: "notif",
+          });
+        }
+      });
+  };
+
+  componentDidMount() {
+    localStorage.setItem("track_id", this.props.match.params.id);
+    this.fetchLyrics();
+    this.getTrackinfo();
   }
 
   render() {
     const { track, lyrics } = this.state;
-    let date = new Date(track.updated_time);
-    date = date.toString().substring(0, 21);
+    let date = track
+      ? new Date(track.updated_time).toString().substring(0, 21)
+      : null;
     return (
       <div>
         {lyrics === undefined ||
         track === undefined ||
         Object.keys(track).length === 0 ||
         Object.keys(lyrics).length === 0 ? (
-          <Spinner />
+          <>
+            <Spinner />
+          </>
         ) : (
           <React.Fragment>
             <Link
               to="/"
-              className="btn btn-dark text-light btn-lg mb-4 ml-3 mr-3"
               title="back to home"
+              class="btn btn-outline-light btn-sm back-btn"
             >
-              <i className="fas fa-chevron-circle-left"></i>
+              <i class="fas fa-long-arrow-alt-left"></i>
             </Link>{" "}
-            <div className="card shadow-lg p-4">
-              {this.state.track ? (
-                <span>
-                  <i className="card-img-top fas fa-image mx-auto"></i>
-                  Album Cover not available
-                </span>
-              ) : (
+            <div className="card shadow-lg lyrics-card">
+              {/* {this.state.track.album ? (
                 <div className="d-flex justify-content-center">
                   <div
                     className="spinner-grow"
@@ -79,10 +95,22 @@ class Lyrics extends Component {
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 </div>
-              )}
+              ) : (
+                <div className="d-flex justify-content-center">
+                  <span>
+                    <img
+                      src={imagenotfound}
+                      alt="Album Cover not available"
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                    <br />
+                    <span>cover iamge not found!</span>
+                  </span>
+                </div>
+              )} */}
               <div className="card-header">
-                <div className="card-title text-left">
-                  <h5 title="Name and album">
+                <div className="card-title">
+                  <h3 title="Name and album">
                     <strong>{track.track_name}</strong> from {track.album_name}
                     {"  "}
                     <span
@@ -97,19 +125,14 @@ class Lyrics extends Component {
                     >
                       {track.track_rating && <>{track.track_rating}</>}
                     </span>
-                  </h5>
+                    <span title="Artist"> - by {track.artist_name}</span>
+                  </h3>
                 </div>
               </div>
               <div className="card-body">
-                <p
-                  className="card-text bg-light text-xl-dark p-2 w-auto border-bottom"
-                  title="Artist"
-                >
-                  - by {track.artist_name}{" "}
-                </p>
-                <h1 className="display-6">Lyrics</h1>
-                <figure title="lyrics">
-                  <blockquote className="blockquote border p-3">
+                <h2>Lyrics</h2>
+                <div title="lyrics" id="song-lyrics">
+                  <blockquote className="blockquote">
                     <p className="1h-base">
                       {lyrics.lyrics_body.substring(
                         0,
@@ -125,24 +148,34 @@ class Lyrics extends Component {
                     {lyrics.lyrics_copyright.substring(0, 33)}
                     <cite title="Source Title"></cite>
                   </figcaption>
-                </figure>
-
-                <span role="button" title="click to view full lyrics">
-                  <a
-                    href={track.track_share_url}
-                    className="btn btn-link text-dark"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <u> view full lyrics</u>
-                  </a>
-                </span>
+                </div>
               </div>
               <div
                 className="card-footer text-muted"
                 title="last updated lyrics"
               >
                 <span>last updated at {date}</span>
+
+                <button
+                  type="button"
+                  className="btn btn-dark  float-end"
+                  title="click to view full lyrics"
+                  style={{
+                    color: "#ffffff",
+                    margin: "0 10px",
+                  }}
+                >
+                  <a
+                    href={track.track_share_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: "#ffffff",
+                    }}
+                  >
+                    <u> view full lyrics</u>
+                  </a>
+                </button>
                 <button
                   type="button"
                   className="btn btn-dark  float-end"
@@ -155,6 +188,78 @@ class Lyrics extends Component {
                 </button>
               </div>
             </div>
+            {/* feedback form */}
+            {this.state.type === "form" ? (
+              this.state.show ? (
+                <div className="card feedback-card">
+                  <div
+                    className="card-header"
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <h5>Send Feedback </h5>
+                    <span
+                      className="text-muted"
+                      style={{
+                        marginLeft: "auto",
+                      }}
+                    >
+                      This is an unauthenticated feedback. It has some
+                      limitations the feedback.
+                    </span>
+                  </div>
+                  <div className="card-body">
+                    <form
+                      onSubmit={(e) => {
+                        this.setState({ show: true });
+                        this.provideFeedback(e);
+                      }}
+                    >
+                      <div className="form-group">
+                        <label htmlFor="exampleFormControlTextarea1">
+                          Your Comment
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="3"
+                          onChange={(e) =>
+                            this.setState({
+                              feedback: e.target.value,
+                            })
+                          }
+                          placeholder="The feedback to be reported, possible values are: wrong_lyrics, wrong_attribution, bad_characters, lines_too_long, wrong_verses, wrong_formatting"
+                        ></textarea>
+                      </div>
+                      <button
+                        className="btn btn-primary w-20 m-2"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                  <span
+                    className="text-muted"
+                    style={{
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    Thanks for helping us grow!
+                  </span>
+                </div>
+              ) : (
+                <Spinner />
+              )
+            ) : (
+              <div
+                className="alert alert-primary w-50 p-2 mx-auto mt-5"
+                role="alert"
+              >
+                Feedback Submitted, Thanks for the feedback!
+              </div>
+            )}
           </React.Fragment>
         )}
       </div>
@@ -163,5 +268,3 @@ class Lyrics extends Component {
 }
 
 export default Lyrics;
-
-//<img src='https://s.mxmcdn.net/images-storage/albums5/4/4/3/7/9/6/50697344_350_350.jpg' className="card-img-top center mx-auto" alt="album cover" style={{ width: '400px', height: '400px' }} />
