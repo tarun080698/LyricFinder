@@ -1,58 +1,44 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 
 const Navbar = (props) => {
   const [state, setState] = useState("true");
 
   function handleChange() {
-    let check = !state
+    let check = !state;
     setState(check);
     props.changeTheme();
   }
+
   return (
     <nav className="navbar">
-      <div className="navbar-brand h1 mx-auto">
+      <Link class="navbar-brand" to="/">
         <img
           src={logo}
           alt="hot 10 tracks"
           style={{ width: "45px", height: "45px" }}
         />{" "}
-        <span className="heading text-capitalize font-monospace text-center text-large">
-          Find Lyrics
-        </span>
-      </div>
-      <label
-        clsaaName="form-check-label float-right"
-        for="flexSwitchCheckDisabled"
-        style={{
-          marginRight: "10px",
-        }}
-      >
-        Dark theme
-      </label>
-      <input
-        // clsaaName="btn float-right"
-        clsaaName="form-check-input float-right"
-        type="checkbox"
-        id="flexSwitchCheckChecked"
-        // checked
-        defaultChecked={state}
-        onClick={handleChange}
-        style={{
-          marginRight: "20px",
-        }}
-      />
-      {/* <button
-        type="button"
-        clsaaName="btn float-right"
-        onClick={props.changeTheme}
-        style={{
-          marginRight: "20px",
-        }}
-      >
-        Toggle Theme
-      </button> */}
+        Find Lyrics
+      </Link>
+
+      <form class="form-inline theme-btn">
+        <label
+          clsaaName="form-check-label"
+          for="flexSwitchCheckDisabled"
+          style={{ marginRight: "10px" }}
+        >
+          Dark theme
+        </label>
+        <input
+          clsaaName="form-check-input"
+          type="checkbox"
+          id="flexSwitchCheckChecked"
+          defaultChecked={state}
+          onClick={handleChange}
+        />
+      </form>
     </nav>
   );
 };

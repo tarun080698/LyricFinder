@@ -6,49 +6,69 @@
 
 .dark-theme {
   --clr-bg: #001233;
-  --clr-font: #979DAC;
-  --clr-primary: #E7ECEF;
+  --clr-font: #979dac;
+  --clr-primary: #e7ecef;
   --clr-card-bg: #002855;
-  --clr-card-txt: #ffffff;
+  --clr-card-txt: #fff;
   --clr-btn: #001233;
   --clr-btn-text: #ffffff;
 }
 .light-theme {
-  --clr-bg: #E7ECEF;
-  --clr-font: #E7ECEF;
-  --clr-primary: #E7ECEF;
-  --clr-card-bg: #A3CEF1;
-  --clr-card-txt: #274C77;
-  --clr-btn: #274C77;
+  --clr-bg: #e7ecef;
+  --clr-font: #e7ecef;
+  --clr-primary: #e7ecef;
+  --clr-card-bg: #a3cef1;
+  --clr-card-txt: #274c77;
+  --clr-btn: #274c77;
   --clr-btn-text: #ffffff;
 }
-
+body {
+  background-color: var(--clr-btn);
+  font-family: cursive;
+}
 /* container */
 div.container-fluid {
   color: var(--clr-bcg);
-  background-color: var(--clr-bg);
+  background-color: var(--clr-btn);
 }
 
 /* navbar */
-span.heading {
-  color: var(--clr-primary);
-}
-
 nav {
   background-color: var(--clr-btn);
   color: var(--clr-font);
 }
+.navbar-brand {
+  color: var(--clr-font);
+  font-size: 2rem;
+  margin: 0 1%;
+  font-family: cursive;
+}
+
+.theme-btn {
+  color: var(--clr-font);
+  font-size: 1.3rem;
+  margin: 0 1%;
+  font-family: cursive;
+}
 
 /* search coponent */
+.input-clr {
+  color: #274c77;
+}
 .card {
   color: var(--clr-card-txt);
   background-color: var(--clr-card-bg);
   border-radius: 1.25rem;
 }
 
-.card .card-body{
+.search {
+  margin: 5% 7%;
+  text-align: center;
+  font-family: cursive;
+}
+
+.card .card-body {
   color: var(--clr-card-txt);
-  border-radius: 1.25rem;
 }
 
 /* tracks */
@@ -63,4 +83,32 @@ nav {
 .btn {
   color: var(--clr-btn-text);
   background-color: var(--clr-btn);
+}
+
+/* lyrics */
+.lyrics-card {
+  margin: 0 5%;
+  padding: 1% 1%;
+}
+
+.card-title {
+  display: flex;
+  font-family: cursive;
+}
+.card-body {
+  font-family: cursive;
+}
+
+#song-lyrics {
+  font-family: system-ui;
+}
+
+.feedback-card {
+  /* shadow-none p-2 mt-5 mx-auto w-50 center */
+  margin: 2% 10% 0;
+  padding: 1%;
+}
+
+.back-btn {
+  margin: 1% 5% 1%;
 }

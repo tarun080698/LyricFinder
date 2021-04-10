@@ -36,15 +36,12 @@ function App() {
   return (
     <Provider className="App">
       <Router>
+        <Navbar changeTheme={toggleTheme} />
         <React.Fragment>
-          <Navbar changeTheme={toggleTheme} />
-
-          <div className="container-fluid">
-            <Switch>
-              <Route exact path="/" component={Index} />
-              <Route exact path="/lyric/track/:id" component={Lyrics} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/" component={Index} />
+            <Route exact path="/lyric/track/:id" component={Lyrics} />
+          </Switch>
         </React.Fragment>
       </Router>
     </Provider>

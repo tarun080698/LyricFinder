@@ -32,13 +32,11 @@ export default class Search extends Component {
         result =
           this.state.search_tracks.length > 0 ? (
             <React.Fragment>
-              <h3 className="text-center mb-5">
-                <h1 className="display-6">
-                  Search results for "<strong>{this.state.searchedFor}</strong>"
-                  are :{" "}
-                </h1>
-              </h3>
-              <div className="row">
+              <h1 className="display-6 input-clr text-center mb-5">
+                Search results for "<strong>{this.state.searchedFor}</strong>"
+                are :{" "}
+              </h1>
+              <div className="row mx-2">
                 {this.state.search_tracks.map((item) => {
                   return <Track track={item.track} key={item.track.track_id} />;
                 })}
@@ -76,15 +74,18 @@ export default class Search extends Component {
       <Consumer>
         {(value) => {
           return (
-            <div>
-              <div className="card card-body text-center mb-5 py-5 w-70">
-                <h5 className="card-title display-3 text-capitalize">
+            <div className="row">
+              <div className="card card-body search text-center">
+                <h4
+                  className="card-title text-capitalize"
+                  style={{ alignSelf: "center" }}
+                >
                   <i className="fas fa-music"></i>
-                  {"  "}Search for a song lyrics
-                </h5>
-                <p className="card-text text-muted text-capitalize display-6">
+                  &nbsp; Search for a song lyrics
+                </h4>
+                <h5 className="card-text text-muted text-capitalize">
                   Get lyrics for any song
-                </p>
+                </h5>
                 <form
                   onSubmit={(e) => {
                     this.setState({
@@ -93,10 +94,10 @@ export default class Search extends Component {
                     this.findTrack(e);
                   }}
                 >
-                  <div className="form-group form-floating">
+                  <div className="form-group form-floating input-clr">
                     <input
                       type="search"
-                      className="form-control form-control-lg mb-3 mx-auto"
+                      className="form-control form-control-lg mb-3"
                       placeholder='{<i className="fas fa-search"></i>}search by Track Title or Artist Name'
                       name="searchValue"
                       value={this.state.searchValue}

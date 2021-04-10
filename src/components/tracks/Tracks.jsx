@@ -17,7 +17,7 @@ export default class Tracks extends Component {
             <React.Fragment>
               <div className="container-fluid">
                 <div className="row">
-                  <div className="col border-bottom-0">
+                  <div className="col-lg-4 col-md-6">
                     <h1 className="text-center mb-4 text-muted font-monospace">
                       <img
                         src={hot}
@@ -26,15 +26,13 @@ export default class Tracks extends Component {
                       />
                       Hot Tracks
                     </h1>
-                    {/* <div className="col"> */}
                     {hot_tracks.map((track) => {
                       return (
                         <Track key={track.track.track_id} track={track.track} />
                       );
                     })}
-                    {/* </div> */}
                   </div>
-                  <div className="col">
+                  <div className="col-lg-4 col-md-6">
                     <h1 className="text-center mb-4 text-muted font-monospace">
                       <img
                         src={weekly}
@@ -43,15 +41,13 @@ export default class Tracks extends Component {
                       />
                       Weekly Top Tracks
                     </h1>
-                    {/* <div className="col"> */}
                     {weekly_tracks.map((track) => {
                       return (
                         <Track key={track.track.track_id} track={track.track} />
                       );
                     })}
-                    {/* </div> */}
                   </div>
-                  <div className="col">
+                  <div className="col-lg-4">
                     <h1 className="text-center mb-4 text-muted font-monospace">
                       <img
                         src={Top}
@@ -60,13 +56,11 @@ export default class Tracks extends Component {
                       />
                       Top 10 Tracks
                     </h1>
-                    {/* <div className="col"> */}
                     {top_ten.map((track) => {
                       return (
                         <Track key={track.track.track_id} track={track.track} />
                       );
                     })}
-                    {/* </div> */}
                   </div>
                 </div>
               </div>

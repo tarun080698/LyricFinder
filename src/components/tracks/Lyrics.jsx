@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Spinner from "../layouts/Spinner.jsx";
 import { Link } from "react-router-dom";
-import imagenotfound from "../../assets/img/notfound.png";
+// import imagenotfound from "../../assets/img/notfound.png";
 class Lyrics extends Component {
   constructor(props) {
     super(props);
@@ -79,13 +79,13 @@ class Lyrics extends Component {
           <React.Fragment>
             <Link
               to="/"
-              className="btn btn-dark text-light btn-lg mb-4 ml-3 mr-3"
               title="back to home"
+              class="btn btn-outline-light btn-sm back-btn"
             >
-              <i className="fas fa-chevron-circle-left"></i>
+              <i class="fas fa-long-arrow-alt-left"></i>
             </Link>{" "}
-            <div className="card shadow-lg p-4">
-              {this.state.track.album ? (
+            <div className="card shadow-lg lyrics-card">
+              {/* {this.state.track.album ? (
                 <div className="d-flex justify-content-center">
                   <div
                     className="spinner-grow"
@@ -107,10 +107,10 @@ class Lyrics extends Component {
                     <span>cover iamge not found!</span>
                   </span>
                 </div>
-              )}
+              )} */}
               <div className="card-header">
-                <div className="card-title text-left">
-                  <h5 title="Name and album">
+                <div className="card-title">
+                  <h3 title="Name and album">
                     <strong>{track.track_name}</strong> from {track.album_name}
                     {"  "}
                     <span
@@ -125,19 +125,14 @@ class Lyrics extends Component {
                     >
                       {track.track_rating && <>{track.track_rating}</>}
                     </span>
-                  </h5>
+                    <span title="Artist"> - by {track.artist_name}</span>
+                  </h3>
                 </div>
               </div>
               <div className="card-body">
-                <p
-                  className="card-text text-xl-dark p-2 w-auto border-bottom"
-                  title="Artist"
-                >
-                  - by {track.artist_name}{" "}
-                </p>
-                <h1 className="display-6">Lyrics</h1>
-                <figure title="lyrics">
-                  <blockquote className="blockquote border p-3">
+                <h2>Lyrics</h2>
+                <div title="lyrics" id="song-lyrics">
+                  <blockquote className="blockquote">
                     <p className="1h-base">
                       {lyrics.lyrics_body.substring(
                         0,
@@ -153,24 +148,34 @@ class Lyrics extends Component {
                     {lyrics.lyrics_copyright.substring(0, 33)}
                     <cite title="Source Title"></cite>
                   </figcaption>
-                </figure>
-
-                <span role="button" title="click to view full lyrics">
-                  <a
-                    href={track.track_share_url}
-                    className="btn btn-link"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <u> view full lyrics</u>
-                  </a>
-                </span>
+                </div>
               </div>
               <div
                 className="card-footer text-muted"
                 title="last updated lyrics"
               >
                 <span>last updated at {date}</span>
+
+                <button
+                  type="button"
+                  className="btn btn-dark  float-end"
+                  title="click to view full lyrics"
+                  style={{
+                    color: "#ffffff",
+                    margin: "0 10px",
+                  }}
+                >
+                  <a
+                    href={track.track_share_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: "#ffffff",
+                    }}
+                  >
+                    <u> view full lyrics</u>
+                  </a>
+                </button>
                 <button
                   type="button"
                   className="btn btn-dark  float-end"
@@ -186,14 +191,25 @@ class Lyrics extends Component {
             {/* feedback form */}
             {this.state.type === "form" ? (
               this.state.show ? (
-                <div className="card shadow-none p-2 mt-5 mx-auto w-50 center">
-                  <h5 className="card-header">Send Feedback!</h5>
-                  <div className="card-body">
-                    <span className="text-muted mb-1">
+                <div className="card feedback-card">
+                  <div
+                    className="card-header"
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <h5>Send Feedback </h5>
+                    <span
+                      className="text-muted"
+                      style={{
+                        marginLeft: "auto",
+                      }}
+                    >
                       This is an unauthenticated feedback. It has some
                       limitations the feedback.
-                      <br /> Thanks for helping us grow!
                     </span>
+                  </div>
+                  <div className="card-body">
                     <form
                       onSubmit={(e) => {
                         this.setState({ show: true });
@@ -224,6 +240,14 @@ class Lyrics extends Component {
                       </button>
                     </form>
                   </div>
+                  <span
+                    className="text-muted"
+                    style={{
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    Thanks for helping us grow!
+                  </span>
                 </div>
               ) : (
                 <Spinner />
