@@ -1,4 +1,4 @@
-THis app is hosted on netlify. For demo, click here https://find-lyrics-achiever.netlify.app/
+This app is hosted on netlify. For demo, click here https://find-lyrics-achiever.netlify.app/
 
 # Getting Started with Create React App
 

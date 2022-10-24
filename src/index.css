@@ -106,7 +106,8 @@ padding: 0px 0px 0px 20px;}
 }
 
 .feedback-card {
-  margin: 2% 10% 0;
+  /* shadow-none p-2 mt-5 mx-auto w-50 center */
+  margin: 2% 10% 5%;
   padding: 1%;
 }
 
