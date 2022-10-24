@@ -199,7 +199,7 @@ class Lyrics extends Component {
                     }}
                   >
                     <h5>Send Feedback </h5>
-                    <span
+                    {/* <span
                       className="text-muted"
                       style={{
                         marginLeft: "auto",
@@ -207,7 +207,7 @@ class Lyrics extends Component {
                     >
                       This is an unauthenticated feedback. It has some
                       limitations the feedback.
-                    </span>
+                    </span> */}
                   </div>
                   <div className="card-body">
                     <form

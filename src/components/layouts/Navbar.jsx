@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 
 const Navbar = (props) => {
-  const [state, setState] = useState("true");
+  let theme = localStorage.getItem("theme");
+  const [state, setState] = useState(theme === "dark-theme" ? true : false);
 
   function handleChange() {
     let check = !state;

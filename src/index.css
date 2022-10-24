@@ -24,7 +24,6 @@
 }
 body {
   background-color: var(--clr-btn);
-  font-family: cursive;
 }
 /* container */
 div.container-fluid {
@@ -64,19 +63,26 @@ nav {
 .search {
   margin: 5% 7%;
   text-align: center;
-  font-family: cursive;
 }
 
 .card .card-body {
   color: var(--clr-card-txt);
 }
 
+h5{
+text-align: center;
+}
+p{
+padding: 0px 0px 0px 20px;}
 /* tracks */
 
 /* track */
 .card .card-title .card-text {
   color: var(--clr-primary);
   background-color: var(--clr-bg);
+}
+.card-footer{
+  padding: 10px 20px;
 }
 
 /* buttons */
@@ -93,10 +99,6 @@ nav {
 
 .card-title {
   display: flex;
-  font-family: cursive;
-}
-.card-body {
-  font-family: cursive;
 }
 
 #song-lyrics {
